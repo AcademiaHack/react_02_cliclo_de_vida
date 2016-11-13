@@ -4,6 +4,17 @@ import UserForm from './UserForm'
 import UserTable from './UserTable'
 
 export default class ListingUsers extends React.Component {
+  constructor () {
+    super()
+    this.state = { users: [] }
+  }
+
+  handleUserData (userData) {
+    const users = this.state.users
+    users.push(userData)
+    this.setState({users})
+  }
+
   render () {
     return (
       <div className="row">
@@ -11,8 +22,8 @@ export default class ListingUsers extends React.Component {
           <h1 className="text-center">Listing Users</h1>
           <SearchForm />
           <div className="row">
-            <UserForm />
-            <UserTable />
+            <UserForm onUserSubmit={this.handleUserData.bind(this)}/>
+            <UserTable users={this.state.users}/>
           </div>
         </div>
       </div>
